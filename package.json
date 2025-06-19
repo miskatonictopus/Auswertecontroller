@@ -1,0 +1,14 @@
+{
+  "name": "ac",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "turbo": "^1.13.0"
+  },
+  "scripts": {
+    "dev:web": "npm run dev --workspace=web"
+  }
+}
