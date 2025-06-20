@@ -7,7 +7,7 @@ export default function DashboardLayout({ children }) {
       <Sidebar />
       <div className="flex flex-col flex-1">
         <Header />
-        <main className="flex-1 p-6 overflow-y-auto bg-gray-50">
+        <main className="flex-1 p-6 overflow-y-auto bg-background text-foreground shadow">
           {children}
         </main>
       </div>

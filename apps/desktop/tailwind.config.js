@@ -1,6 +1,9 @@
 import { fontFamily } from "tailwindcss/defaultTheme"
 import shadcnPreset from "./components/ui/preset" // 👈 ajusta la ruta si es distinta
 import preset from "./components/ui/preset.js"
+import { fontFamily } from "tailwindcss/defaultTheme";
+
+
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -8,13 +11,14 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class', 
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        sans: ["Geist", ...fontFamily.sans],
       },
     },
   },
-  presets: [shadcnPreset], // 👈 Esto habilita clases como border-border, bg-muted, etc.
+  presets: [shadcnPreset],
   plugins: [],
 }
