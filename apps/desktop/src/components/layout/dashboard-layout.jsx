@@ -6,8 +6,8 @@ export default function DashboardLayout({ children }) {
     <div className="flex h-screen">
       <Sidebar />
       <div className="flex flex-col flex-1">
-        <Header />
-        <main className="flex-1 p-6 overflow-y-auto bg-background text-foreground shadow">
+        {/* <Header /> */}
+        <main className="flex-1 p-6 overflow-y-auto  bg-zinc-900 text-foreground shadow">
           {children}
         </main>
       </div>

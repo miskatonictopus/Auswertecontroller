@@ -32,25 +32,46 @@ ipcMain.handle("guardar-asignatura-json", async (event, filename, data) => {
 
     fs.mkdirSync(saveDir, { recursive: true })
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf-8")
-    return { success: true, path: filePath }
-  } catch (err) {
-    console.error("❌ Error al guardar asignatura:", err)
-    return { success: false, error: err.message }
+
+    return { success: true }
+  } catch (error) {
+    console.error("Error al guardar:", error)
+    return { success: false, error: error.message }
   }
 })
 
-ipcMain.handle("leer-asignaturas-locales", async () => {
-  const dir = path.join(app.getPath("documents"), "Auswertecontroller")
+
+
+// Ruta segura fuera del repo
+const rutaAlumnos = path.join(app.getPath("userData"), "alumnos.json");
+
+// Crear el archivo si no existe
+function asegurarArchivoJSON() {
+  if (!fs.existsSync(rutaAlumnos)) {
+    fs.writeFileSync(rutaAlumnos, "[]", "utf-8");
+  }
+}
+
+// Handler para guardar un nuevo alumno
+ipcMain.handle("guardar-alumno", async (event, alumno) => {
   try {
-    const archivos = fs.readdirSync(dir)
-    const jsonFiles = archivos.filter((f) => f.endsWith(".json"))
-    const asignaturas = jsonFiles.map((nombreArchivo) => {
-      const contenido = fs.readFileSync(path.join(dir, nombreArchivo), "utf-8")
-      return JSON.parse(contenido)
-    })
-    return asignaturas
-  } catch (e) {
-    console.error("❌ Error al leer asignaturas locales:", e)
-    return []
+    const saveDir = path.join(app.getPath("documents"), "Auswertecontroller")
+    const filePath = path.join(saveDir, "alumnos.json")
+
+    let alumnos = []
+    if (fs.existsSync(filePath)) {
+      const contenido = fs.readFileSync(filePath, "utf-8")
+      alumnos = JSON.parse(contenido)
+    }
+
+    alumnos.push(alumno)
+    fs.writeFileSync(filePath, JSON.stringify(alumnos, null, 2), "utf-8")
+
+    return { success: true }
+  } catch (error) {
+    return { success: false, error: error.message }
   }
 })
+
+
+
